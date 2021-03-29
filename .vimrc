@@ -1,4 +1,6 @@
 " these 2 are required for plugin manager
+"
+"
 set nocompatible
 filetype off
 
@@ -29,7 +31,20 @@ Plugin 'vim-syntastic/syntastic'
 " git gutter
 Plugin 'airblade/vim-gitgutter'
 
+" react and typescript tools
+Plugin 'pangloss/vim-javascript'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'jparise/vim-graphql'
+
+" Install Conquer of Completion (CoC) language help (ide-like support)
+Plugin 'neoclide/coc.nvim', { 'branch': 'release' }
+
 call vundle#end()
+
+" put node in path so that it's found by coc.nvim
+if $NVM_BIN != ""
+    let g:coc_node_path = '$NVM_BIN/node'
+endif
 
 filetype plugin indent on
 syntax on
@@ -40,6 +55,7 @@ set shiftwidth=4
 set softtabstop=1
 set expandtab
 set smarttab
+set noswapfile
 
 " reads file from disk automatically if it changes
 set autoread
@@ -152,3 +168,31 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " let g:syntastic_javascript_checkers = ['eslint']
+
+" adding some language support to coc.
+" TypeScript
+let g:coc_global_extensions = ['coc-tsserver']
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+    let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+    let g:coc_global_extensions += ['coc-eslint']
+endif
+
+" Show documentation for word under cursor
+nnoremap <Leader>h CocAction('doHover')<CR>
+
+nmap <silent> <Leader>err <Plugin>(coc-diagnostic-next)
+nmap <silent> <Leader>def <Plugin>(coc-definition)
+nmap <silent> <Leader>type <Plugin>(coc-type-definition)
+nmap <silent> <Leader>ref <Plugin>(coc-references)
+nnoremap <silent> <Leader>dia :<C-u>CocList diagnostics<CR>
+nnoremap <silent> <Leader>sym :<c-u>CocList -I symbols<CR>
+nmap <Leader>fix <Plugin>(coc-codeaction)
+nmap <Leader>rn <Plugin>(coc-rename)
+
+highlight CocInfoFloat ctermbg=Grey guibg=#666666
+highlight CocWarningFloat ctermbg=Grey guibg=#666666
+highlight CocErrorFloat ctermbg=Grey guibg=#666666
