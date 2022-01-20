@@ -35,6 +35,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'pangloss/vim-javascript'
 Plugin 'maxmellon/vim-jsx-pretty'
 Plugin 'jparise/vim-graphql'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'styled-components/vim-styled-components'
+Plugin 'jonsmithers/vim-html-template-literals'
 
 " Install Conquer of Completion (CoC) language help (ide-like support)
 Plugin 'neoclide/coc.nvim', { 'branch': 'release' }
@@ -50,8 +53,8 @@ filetype plugin indent on
 syntax on
 
 set autoindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=1
 set expandtab
 set smarttab
@@ -196,3 +199,4 @@ nmap <Leader>rn <Plugin>(coc-rename)
 highlight CocInfoFloat ctermbg=Grey guibg=#666666
 highlight CocWarningFloat ctermbg=Grey guibg=#666666
 highlight CocErrorFloat ctermbg=Grey guibg=#666666
+
